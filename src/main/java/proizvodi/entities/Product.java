@@ -33,10 +33,12 @@ public class Product {
 	@Column
 	private int productQuantity;
 	
-	@ManyToMany
-	@JoinTable(name="Log", joinColumns=@JoinColumn(name="bookId"), inverseJoinColumns=@JoinColumn(name="productId", insertable=false, updatable=false))
-	List<User> users = new ArrayList<>();
-
+	@ManyToMany(mappedBy="products")
+	private List<User> users = new ArrayList<>();
+	
+	public Product() {
+		
+	}
 	public Product(String productName, double productPrice, int productQuantity, List<User> users) {
 		super();
 		this.productName = productName;
@@ -84,7 +86,9 @@ public class Product {
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
-	
+	public void addUser(User user) {
+		users.add(user);
+	}
 	
 	
 	
