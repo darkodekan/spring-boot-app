@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import org.springframework.lang.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table
@@ -40,7 +42,7 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	private Date dateOfRegistration;
 	
-	@ManyToMany
+	@ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="Log", joinColumns=@JoinColumn(name="userId"), inverseJoinColumns=@JoinColumn(name="productId", insertable=false, updatable=false))
 	@JsonIgnore
 	private List<Product> products = new ArrayList<>();
@@ -70,11 +72,11 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
-
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}

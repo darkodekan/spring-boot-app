@@ -11,6 +11,8 @@
 
 5. (NIJE POTREBAN KORAK)Pokreni SQL skriptu insert_table.sql da uneseš vrednosti u tabele
 
+Veza između User i Product tabele je Many-To-Many
+
 ## Spring Boot
 
 1. Instaliraj Spring Tool Suite  
@@ -20,3 +22,9 @@
 3. Podesi bazu podataka u Application.properties da bude spojena sa products bazom
 
 4. Pokreni applikaciju ProizvodiApplication.java  
+
+## Projekta Struktura Datoteka
+
+Izvorni kod se nalazi u src folderu  
+
+Imamo četiri paketa: entiteti, repozitorijumi, servisi i kontroleri.  

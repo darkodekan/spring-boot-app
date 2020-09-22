@@ -1,4 +1,4 @@
-package proizvodi.controllers;
+package proizvodi.controllers.api;
 
 import java.util.Collection;
 
