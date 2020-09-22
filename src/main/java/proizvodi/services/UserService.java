@@ -28,6 +28,12 @@ public class UserService {
 	public void deleteById(Integer id) {
 		userRepository.deleteById(id);
 	}
+	public boolean existsById(Integer id) {
+		return userRepository.existsById(id);
+	}
+	public boolean existsByUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
 	
 	
 

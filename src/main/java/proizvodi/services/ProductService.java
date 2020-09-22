@@ -1,6 +1,8 @@
 package proizvodi.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,20 @@ public class ProductService {
 	}
 	public void deleteById(Integer id) {
 		productRepository.deleteById(id);
+	}
+	public boolean existsById(Integer id) {
+		return productRepository.existsById(id);
+	}
+	public Collection<Product> getAllProductsWithUsers(){
+		List<Product> allProducts = productRepository.findAll();
+		ArrayList<Product> productsWithUsers = new ArrayList<>();
+		for(Product product : allProducts) {
+			if(!product.getUsers().isEmpty()) {
+				productsWithUsers.add(product);
+			}
+		}
+		return productsWithUsers;
+		
 	}
 
 }

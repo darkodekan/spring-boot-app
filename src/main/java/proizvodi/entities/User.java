@@ -16,20 +16,24 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 	@Id
 	@Column
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer userId;
 	
-	@Column
+	@Column(unique=true, nullable=false)
 	private String username;
 	
-	@Column
+	@Column(nullable=false)
 	private String password;
 	
 	@Column
@@ -37,7 +41,8 @@ public class User {
 	private Date dateOfRegistration;
 	
 	@ManyToMany
-	@JoinTable(name="Log", joinColumns=@JoinColumn(name="productId"), inverseJoinColumns=@JoinColumn(name="bookId", insertable=false, updatable=false))
+	@JoinTable(name="Log", joinColumns=@JoinColumn(name="userId"), inverseJoinColumns=@JoinColumn(name="productId", insertable=false, updatable=false))
+	@JsonIgnore
 	private List<Product> products = new ArrayList<>();
 	public User() {
 		

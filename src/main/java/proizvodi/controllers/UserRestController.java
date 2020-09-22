@@ -21,26 +21,37 @@ public class UserRestController {
 	@Autowired
 	UserService userService;
 	
+	//dodavanje korisnika
 	@PostMapping("/user")
 	public ResponseEntity<HttpStatus> createUser(@RequestBody User user){
+		if(userService.existsByUsername(user.getUsername())){
+			return new ResponseEntity<HttpStatus>(HttpStatus.NOT_ACCEPTABLE);
+		}
 		userService.save(user);
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);	
-
 	}
+	//prikazivanje svih korisnika
 	@GetMapping("/user")
 	public Collection<User> getAllUsers() {
 		return userService.getAll();
 		
 	}
+	
+	//brisanje korisnika preko id
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<HttpStatus> deleteUser(@PathVariable Integer id){
-		userService.deleteById(id);
-		return new ResponseEntity<HttpStatus>(HttpStatus.OK);	
+		if(userService.existsById(id)) {
+			userService.deleteById(id);
+			return new ResponseEntity<HttpStatus>(HttpStatus.OK);	
+		}
+		return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
 
 	}
+	
+	//prikazivanje korisnika sa id 
 	@GetMapping("/user/{id}")
 	public User getUser(@PathVariable Integer id){
-		return userService.getById(id);
+		return userService.getById(id);	
 	}
 	
 

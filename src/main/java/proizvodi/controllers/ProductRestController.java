@@ -25,14 +25,21 @@ public class ProductRestController {
 	@Autowired
 	UserService userService;
 	
+	//dodavanje proizvoda
 	@PostMapping("/product")
 	public ResponseEntity<HttpStatus> addProduct(@RequestBody Product product) {
-		
 		productService.save(product);
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);	
-
+	}
+	//ispisivanje svih proizvoda
+	@GetMapping("/product")
+	public Collection<Product> getAllProducts(){
+		return productService.getAll();
 		
 	}
+	// spring.jpa.hibernate.ddl-auto = create
+	//dodavanje proizvoda korisniku
+	//npr product/1/user/2 bi dodao product sa id 1 korisniku sa id 2
 	@PostMapping("/product/{productId}/user/{userId}")
 	public ResponseEntity<HttpStatus> getAllProducts(@PathVariable int productId, @PathVariable int userId){
 		Product product = productService.getById(productId);
@@ -45,6 +52,13 @@ public class ProductRestController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 		
 	}
+	@GetMapping("/product/user")
+	public Collection<Product> getAllProductsUser(){
+		return productService.getAllProductsWithUsers();
+	}
+	
+	
+	
 	
 
 }
