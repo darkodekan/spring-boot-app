@@ -1,10 +1,12 @@
 package proizvodi.controllers.api;
 
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +24,13 @@ public class UserRestController {
 	UserService userService;
 	
 	//dodavanje korisnika
+	@CrossOrigin
 	@PostMapping("/user")
 	public ResponseEntity<HttpStatus> createUser(@RequestBody User user){
 		if(userService.existsByUsername(user.getUsername())){
 			return new ResponseEntity<HttpStatus>(HttpStatus.NOT_ACCEPTABLE);
 		}
+		user.setDateOfRegistration(new Date());
 		userService.save(user);
 		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);	
 	}

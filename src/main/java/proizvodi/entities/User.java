@@ -49,6 +49,23 @@ public class User {
 	public User() {
 		
 	}
+	
+	
+public User(Integer userId, String username, String password) {
+		super();
+		this.userId = userId;
+		this.username = username;
+		this.password = password;
+	}
+
+
+public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+		
+	}
+	
+	
 	public User(String username, String password, Date dateOfRegistration, List<Product> products) {
 		super();
 		this.username = username;

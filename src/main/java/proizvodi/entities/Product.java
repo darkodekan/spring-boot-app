@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -26,13 +27,13 @@ public class Product {
 	private Integer productId;
 	
 	@Column
-	private String productName;
+	private String name;
 	
 	@Column
-	private double productPrice;
+	private double price;
 	
 	@Column
-	private int productQuantity;
+	private int quantity;
 	
 	@ManyToMany(mappedBy="products")
 	private List<User> users = new ArrayList<>();
@@ -40,45 +41,64 @@ public class Product {
 	public Product() {
 		
 	}
-	public Product(String productName, double productPrice, int productQuantity, List<User> users) {
+	
+
+	public Product(Integer productId, String name, double price, int quantity) {
 		super();
-		this.productName = productName;
-		this.productPrice = productPrice;
-		this.productQuantity = productQuantity;
-		this.users = users;
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
 	}
+
+
+	public Product(String name, double price, int quantity) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	
 
 	public Integer getProductId() {
 		return productId;
 	}
 
+
 	public void setProductId(Integer productId) {
 		this.productId = productId;
 	}
 
-	public String getProductName() {
-		return productName;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public double getProductPrice() {
-		return productPrice;
+
+	public double getPrice() {
+		return price;
 	}
 
-	public void setProductPrice(double productPrice) {
-		this.productPrice = productPrice;
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
-	public int getProductQuantity() {
-		return productQuantity;
+
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setProductQuantity(int productQuantity) {
-		this.productQuantity = productQuantity;
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
+
 
 	public List<User> getUsers() {
 		return users;

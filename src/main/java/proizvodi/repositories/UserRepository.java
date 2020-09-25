@@ -15,5 +15,6 @@ import proizvodi.entities.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 	boolean existsByUsername(String username);
 	Collection<User> getByUsername(String username);
+	User findByUsername(String username);
 
 }

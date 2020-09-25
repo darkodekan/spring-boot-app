@@ -16,11 +16,19 @@ public class LoginController {
 	@Autowired
 	UserService userService;
 	
+	
 	@GetMapping("login")
-	public String getLogin(Model model) {
-		model.addAttribute("user", new User());
-		return "login";
+	public String login(Model model, String error, String logout) {
+		 if (error != null)
+	         model.addAttribute("message", "Your username and password is invalid.");
+
+	     if (logout != null)
+	         model.addAttribute("message", "You have been logged out successfully.");
+
+
+        return "login";
 	}
+	/*
 	@PostMapping("/login")
 	public String postLogin(User user, Model model) {
 		System.out.println(user.getUsername());
@@ -33,9 +41,11 @@ public class LoginController {
 		return "login";
 		
 	}
-	
+	*/
+	/*
 	@PostMapping("/logout")
 	public void postLogout() {
 		
 	}
+	*/
 }
